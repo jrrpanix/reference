@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <style>
+    div.container
+    {
+    width:100%;
+    margin:0px;
+    border:1px solid gray;
+    line-height:150%;
+    }
+    div.header,div.footer
+    {
+    padding:2px;
+    color:white;
+    background-color:blue;
+    clear:left;
+    }
+    
+    div.time
+    {
+    margin:2px;
+    border:1px solid #0000ff;
+    height:auto;
+    width:auto;
+    float:left;
+    text-align:center;
+    line-height:100%;
+    }
+    canvas { border: solid black 1px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header"><h4 class="header">Random Numbers via Axaj</h4></div>
+
+    <div class="time" >
+      <table border="1" >
+	<tr>
+	  <td ><label><input type="button" name="startb" onclick="start_click();" /> Generate Random Numbers</label></td>
+	<tr/>
+	<tr height="30px" >
+	  <td>
+	    <p id="data_dump">
+	    </p>
+	  </td>
+	</tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Global Variables 
+    var Start_Date  ;
+    var End_Date    ;
+    var CT_Interval ;
+
+    function start_click()
+    {
+      var ro = new XMLHttpRequest();
+      ro.open( "GET" , "rand_ajax.php" , false );
+      ro.send();
+      var num = document.getElementById( "data_dump" );
+      num.innerHTML=ro.responseText;
+    }
+
+  </script>
+
+
+</body>
+</html>

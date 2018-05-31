@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <style>
+    div.graph_area
+    {
+    text-align:center;
+    }
+    div.time
+    {
+    margin:2px;
+    border:1px solid #0000ff;
+    height:auto;
+    width:auto;
+    float:left;
+    text-align:center;
+    }
+    table.time
+    {
+    border:1px solid #0000ff;
+    }
+    canvas { border: solid black 1px; }
+  </style>
+</head>
+<body>
+  <div class="time" >
+    <table class="time" >
+      <th colspan="2" width="100px" >Timer Buttons</th>
+      <th width="100px">Start Time</th>
+      <th width="100px">Current Time</th>
+      <th width="100px">Stop Time</th>
+      <th width="100px">Elapsed Time</th>
+      <tr>
+	<td><label><input type="button" name="startb" onclick="start_click();" /> Start </label></td>
+	<td><label><input type="button" name="stopb" onclick="stop_click();" /> Stop </label></td>
+	<td id="start"  height="30px"> </td>
+	<td id="current"  height="30px"> </td>
+	<td id="stop"  height="30px" >  </td>
+	<td id="elapsed"  height="30px" >  </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <script>
+    // Global Variables 
+    var Start_Date  ;
+    var End_Date    ;
+    var CT_Interval ;
+
+    function update_current_time()
+    {
+    var date = new Date();
+    var curr = document.getElementById( "current" );
+    curr.innerHTML =  date.toLocaleTimeString();
+    elapsed_time( Start_Date , date );
+    }
+
+    function elapsed_time( s , e )
+    {
+    var d = e.valueOf() - s.valueOf();
+    var seconds = d / 1000;
+    var elap = document.getElementById( "elapsed" );
+    elap.innerHTML = seconds + " sec" ;
+    }
+
+    function start_click()
+    {
+    var date = new Date();
+    //console.log(date.toString());
+    var start = document.getElementById( "start" );
+    var current = document.getElementById( "current" );
+    var stop = document.getElementById( "stop" );
+    var elap = document.getElementById( "elapsed" );
+    start.innerHTML = date.toLocaleTimeString();
+    current.innerHTML = date.toLocaleTimeString();
+    stop.innerHTML = " ";
+    elap.innerHTML = " ";
+    Start_Date = date;
+    CT_Interval = setInterval( update_current_time , 100 );
+    }
+
+    function stop_click()
+    {
+    var date = new Date();
+    //console.log(date.toString());
+    var stop = document.getElementById( "stop" );
+    var curr = document.getElementById( "current" );
+    stop.innerHTML = date.toLocaleTimeString();
+    curr.innerHTML = date.toLocaleTimeString();
+    End_Date = date;
+    elapsed_time(Start_Date,End_Date);
+    clearInterval( CT_Interval );
+    }
+
+  </script>
+
+
+</body>
+</html>

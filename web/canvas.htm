@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <style>
+      div.graph_area
+      {
+         text-align:center;
+      }
+      canvas { border: solid black 1px; }
+    </style>
+    
+    <script type="text/javascript" src="canvas.js"> </script>
+
+  </head>
+  <body>
+    <div>
+      <form name="shapesel" >
+	<fieldset id="shape_sel" ><legend> Shape Selector </legend>
+	  <label><input type="radio" name="shape" value="cross" onclick="button_click();" /> Cross </label>
+	  <label><input type="radio" name="shape" value="diag" onclick="button_click();"  /> Diagonal </label>
+	  <label><input type="radio" name="shape" value="circle" onclick="button_click();" /> Circles </label>
+	  <label><input type="radio" name="shape" value="rect" onclick="button_click();"  /> Rectangles </label>
+	  <label><input type="radio" name="shape" value="triang" onclick="button_click();"  /> Triangles </label>
+	</fieldset>
+	<form/>
+    </div>
+    <div class="graph_area">
+      <canvas id="grapha" width="700" height="600" style="background-color:white;" ></canvas>
+    </div>
+  </body>
+</html>
