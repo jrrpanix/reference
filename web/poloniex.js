@@ -1,3 +1,6 @@
+//
+// this is from https://github.com/premasagar/poloniex.js/
+//
 module.exports = (function() {
   'use strict';
 
