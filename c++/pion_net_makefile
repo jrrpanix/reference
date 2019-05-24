@@ -1,0 +1,22 @@
+CFLAGS += -g -I/usr/include -I/usr/local/include
+LDFLAGS += -L/usr/lib -L/usr/local/lib -lboost_system -lboost_thread -lboost_filesystem -lpion-common -lpion-net 
+
+hello2 : hello2.cpp
+	g++ $(CFLAGS) hello2.cpp -o hello2 $(LDFLAGS)
+
+web_service : web_service.cpp
+	g++ $(CFLAGS) web_service.cpp -o web_service $(LDFLAGS)
+
+server1 : server1.cpp
+	g++ $(CFLAGS) server1.cpp -o server1 $(LDFLAGS)
+
+
+hello_service: HelloService.cpp
+	g++ $(CFLAGS) -fPIC -c HelloService.cpp
+	g++ -fPIC -shared HelloService.o -o HelloService.so
+
+clean :
+	rm hello2
+	rm server1
+	rm web_service
+
