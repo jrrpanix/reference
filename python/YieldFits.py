@@ -27,6 +27,7 @@ def FitYields(tc=0):
         yr = np.array([CubicEval(x, c, xr[i]) for i in range(len(xr))])
         plt.plot(x, y, 'o')
         plt.plot(xr, yr, label=date)
+    plt.title("Historical Yield Curves")
     plt.xlabel("term")
     plt.ylabel("yield")
     plt.legend()
