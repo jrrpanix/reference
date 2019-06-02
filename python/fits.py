@@ -75,10 +75,12 @@ def CubicEval(x, c, xi):
 def CubicTest():
     x = np.array([i/6 + i/12 for i in range(-12,12)])
     y = np.array([np.exp(-0.5*x[i]*x[i]) for i in range(len(x))])
-    c , cn = CubicFit(x,y)
-    print(c)
-    print(cn)
     xr = np.arange(-3, 3.025, 0.025)
+
+    x = np.array([-12,-6.1,-3, -0.5, 1.1, 4, 8,12]) 
+    y = np.array([3,-14, 10, 0, 16,-2, 12, -2])
+    xr = np.arange(x[0],x[-1]+0.1,0.1)
+    c , cn = CubicFit(x,y)
     yr = np.array([CubicEval(x, c, xr[i]) for i in range(len(xr))])
     yActual= np.array([np.exp(-0.5*xr[i]*xr[i]) for i in range(len(xr))])
     plt.plot(x,y, 'ro' , label="points")
