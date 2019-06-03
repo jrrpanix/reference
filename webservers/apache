@@ -1,0 +1,53 @@
+
+
+using the supplied "apachectl" , usually located in /usr/sbin/ , note apachectl is a symlink to apache2ctl
+
+1) configuration files
+
+   /etc/apache2/apache2.conf
+   /etc/apache2/httpd.conf
+   /etc/apache2/ports.conf
+
+2) default location for files servied up by Apache
+
+   /var/www/html
+   /var/www/wsgi-scripts
+
+
+3) start stop commands
+
+   apachectl start     # this will start the server if its not running
+   apachectl graceful  # restart server , will reload configs and allow any existing connections to finish
+   apachectl restart   # restart server , will reload configs and terminate existing connections right away
+   apachectl stop      # shut down server now
+   /etc/init.d/apache2 restart
+
+
+4) ssl configuration
+
+   /etc/apache2/sites-available/default-ssl.conf
+
+
+   <IfModule mod_ssl.c>
+        ServerName <the_server_your_hostingon>
+        <VirtualHost *:80>
+                #ServerName www.yourdomain.com                                                                                                                              
+                Redirect permanent / https://www.yourdomain.com
+    
+        </VirtualHost>
+        <VirtualHost _default_:443>
+                
+                #ServerName www.yourdomain.com                                                                                                                              
+                ServerAdmin webmaster@localhost
+                WSGIScriptAlias /myapp /var/www/wsgi-scripts/myapp.wsgi
+                
+                DocumentRoot /var/www/html
+
+
+5) 
+
+
+
+https://www.shellhacks.com/modwsgi-hello-world-example/
+http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
+
