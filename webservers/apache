@@ -1,12 +1,12 @@
 
-
-using the supplied "apachectl" , usually located in /usr/sbin/ , note apachectl is a symlink to apache2ctl
+APACHE2 Basics
 
 1) configuration files
 
    /etc/apache2/apache2.conf
    /etc/apache2/httpd.conf
    /etc/apache2/ports.conf
+   /etc/apache2/sites-available/default-ssl.conf
 
 2) default location for files servied up by Apache
 
@@ -15,6 +15,7 @@ using the supplied "apachectl" , usually located in /usr/sbin/ , note apachectl 
 
 
 3) start stop commands
+   using the supplied "apachectl" , usually located in /usr/sbin/ , note apachectl is a symlink to apache2ctl
 
    apachectl start     # this will start the server if its not running
    apachectl graceful  # restart server , will reload configs and allow any existing connections to finish
@@ -29,25 +30,39 @@ using the supplied "apachectl" , usually located in /usr/sbin/ , note apachectl 
 
 
    <IfModule mod_ssl.c>
-        ServerName <the_server_your_hostingon>
+        ServerName <the_server_your_hosting_on>
         <VirtualHost *:80>
-                #ServerName www.yourdomain.com                                                                                                                              
                 Redirect permanent / https://www.yourdomain.com
-    
         </VirtualHost>
         <VirtualHost _default_:443>
-                
-                #ServerName www.yourdomain.com                                                                                                                              
+
                 ServerAdmin webmaster@localhost
-                WSGIScriptAlias /myapp /var/www/wsgi-scripts/myapp.wsgi
-                
+                WSGIScriptAlias /myapp /var/www/wsgi-scripts/<your_script_name>
                 DocumentRoot /var/www/html
+        </VirtualHost>
+
+5) python3 wsgi install
+
+    sudo apt-get install libapache2-mod-wsgi-py3
 
 
-5) 
+6) wsgi frameworks - calling python from the web
 
+   Werkzeug
+   sudo apt-get install redis-server
 
+   Flask 
+   based on Werkzeug and Jinja2
+      http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
 
-https://www.shellhacks.com/modwsgi-hello-world-example/
-http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
+   wsgi intro:
+   https://www.shellhacks.com/modwsgi-hello-world-example/
+   http://wsgi.tutorial.codepoint.net/parsing-the-request-post
+
+*) python3.7.3 install on linux
+   sudo wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
+   cd Python-3.7.3
+   sudo ./configure --enable-optimizations
+   sudo make altinstall
+
 
