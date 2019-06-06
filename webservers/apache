@@ -55,9 +55,43 @@ APACHE2 Basics
    based on Werkzeug and Jinja2
       http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
 
+   from flask import Flask
+   from flask_sslify import SSLify
+
+   app = Flask(__name__)
+   sslify = SSLify(app)
+
    wsgi intro:
    https://www.shellhacks.com/modwsgi-hello-world-example/
    http://wsgi.tutorial.codepoint.net/parsing-the-request-post
+
+
+7) enable modules in apache2
+  
+    a2enmod
+
+8) nodejs with apache  
+ 
+   1) enable proxy_http
+	a2enmod proxy_http
+ 
+   2) configure path in default-ssl.conf
+
+   <VirtualHost _default_:443>  
+     ProxyPass /node http://localhost:8000
+   </VirtualHost>
+
+   // simple nodejs server
+   var http = require('http')
+   http.createServer(function(req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello Apache from JRR nodejs!\n');
+   }).listen(8000,'127.0.0.1');
+   
+
+*) TLS
+   Transport Layer Security
+
 
 *) python3.7.3 install on linux
    sudo wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
