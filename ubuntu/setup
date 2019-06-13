@@ -1,0 +1,41 @@
+ssh-keygen -t rsa -C email@domain.com
+sudo adduser jrr
+sudo usermod -aG sudo jrr
+ssh ubuntu@server.com
+cp .ssh/id_rsa.pub .ssh/authorized_keys
+
+.ssh/config
+Host <your_host>
+     Hostname <your_host>
+     User <userid>
+     RequestTTY force
+
+
+#install mosh server side
+sudo add-apt-repository ppa:keithw/mosh
+sudo apt-get update
+sudo apt-get install mosh
+
+# after install from client
+mosh <your_host>
+
+# version of ubuntu
+lsb_release -a
+
+# install build tools
+sudo apt-get install build-essential
+
+# emacs
+sudo apt install emacs-gtk
+
+# postgres sql
+sudo apt install postgresql-11
+sudo systemctl status postgresql
+sudo -i -u postgres
+psql
+
+# install 
+sudo apt install nginx
+sudo ufw app list
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04
+
