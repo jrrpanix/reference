@@ -69,7 +69,30 @@ sudo nginx -t
 #
 
 http://nginx.org/en/docs/http/configuring_https_servers.html
+https://serversforhackers.com/c/redirect-http-to-https-nginx
+NOTE ssl handshake is resource intensive
 
 #
-# ssl handshake is resource intensive
-#
+# typical config under 
+# this reidrets all traffic on http to https
+# /etc/nginx/sites-available/www.<your_domain>.com
+# 
+server {
+        listen 80;
+        server_name www.<your_domain>.com;
+        return 301 https://www.<your_domain>.com;
+}
+
+server {
+       listen              443 ssl;
+       server_name         www.<your_domain>.com;
+       ssl_certificate     /etc/nginx/ssl/www.<your_domain>.com.crt;
+       ssl_certificate_key /etc/nginx/ssl/www.<your_domain>.com.key;
+       ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+       ssl_ciphers         HIGH:!aNULL:!MD5;                                                                                                                                            
+       root /var/www/<your_domain>.com/html;
+       index index.html;
+}
+
+
+
