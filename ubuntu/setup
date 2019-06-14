@@ -34,6 +34,33 @@ sudo systemctl status postgresql
 sudo -i -u postgres
 psql
 
+su - postgres # as root
+createuser --interactive --pwprompt
+
+su -u postgres psql
+\du # list all users
+
+drop user <user_name>:
+CREATE DATABASE yourdbname;
+CREATE USER youruser WITH ENCRYPTED PASSWORD 'yourpass';
+GRANT ALL PRIVILEGES ON DATABASE yourdbname TO youruser;
+
+alter role <user> with SUPERUSER;
+alter role <user> with CREATEDB;
+alter role <user> with CREATEROLE;
+
+create database newuser;
+create user newuser with encrypted password 'thepassword';
+grant all privileges on database newuser to newuser;
+alter role <user> with SUPERUSER;
+alter role <user> with CREATEDB;
+alter role <user> with CREATEROLE;
+
+# should be albe to login as 
+psql
+
+
+
 # install nginx (Engine-X)
 # referenced from here
 https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04
