@@ -1,0 +1,62 @@
+
+
+
+# install nginx (Engine-X)
+# referenced from here
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04
+
+sudo apt install nginx
+sudo ufw app list
+
+systemctl status nginx
+sudo systemctl stop nginx
+sudo systemctl restart nginx
+sudo systemctl reload nginx
+
+#nginx server blocks
+sudo mkdir -p /var/www/example.com/html
+sudo chown -R $USER:$USER /var/www/example.com/html
+sudo chmod -R 755 /var/www/example.com
+nano /var/www/example.com/html/index.html
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+sudo nano /etc/nginx/nginx.conf
+http {
+    ...
+    server_names_hash_bucket_size 64;
+    ...
+}
+sudo nginx -t
+
+/etc/nginx
+/etc/nginx/nginx.conf
+/etc/nginx/sites-available/
+
+#
+# configuring https for nginx
+#
+
+http://nginx.org/en/docs/http/configuring_https_servers.html
+https://serversforhackers.com/c/redirect-http-to-https-nginx
+NOTE ssl handshake is resource intensive
+
+#
+# typical config under 
+# this reidrets all traffic on http to https
+# /etc/nginx/sites-available/www.<your_domain>.com
+# 
+server {
+        listen 80;
+        server_name www.<your_domain>.com;
+        return 301 https://www.<your_domain>.com;
+}
+
+server {
+       listen              443 ssl;
+       server_name         www.<your_domain>.com;
+       ssl_certificate     /etc/nginx/ssl/www.<your_domain>.com.crt;
+       ssl_certificate_key /etc/nginx/ssl/www.<your_domain>.com.key;
+       ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+       ssl_ciphers         HIGH:!aNULL:!MD5;                                                                                                                                            
+       root /var/www/<your_domain>.com/html;
+       index index.html;
+}
